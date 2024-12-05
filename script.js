@@ -11,18 +11,18 @@ let secondCard = false;
 
 // Items Array
 const items = [
-	{ name: "bee", image: "bee.png" },
-	{ name: "crocodile", image: "crocodile.png" },
-	{ name: "macaw", image: "macaw.png" },
-	{ name: "gorilla", image: "gorilla.png" },
-	{ name: "tiger", image: "tiger.png" },
-	{ name: "monkey", image: "monkey.png" },
-	{ name: "chameleon", image: "chameleon.png" },
-	{ name: "piranha", image: "piranha.png" },
-	{ name: "anaconda", image: "anaconda.png" },
-	{ name: "sloth", image: "sloth.png" },
-	{ name: "cockatoo", image: "cockatoo.png" },
-	{ name: "toucan", image: "toucan.png" },
+	{ name: "bee", image: "images/bee.png" },
+	{ name: "crocodile", image: "images/crocodile.png" },
+	{ name: "macaw", image: "images/macaw.png" },
+	{ name: "gorilla", image: "images/gorilla.png" },
+	{ name: "tiger", image: "images/tiger.png" },
+	{ name: "monkey", image: "images/monkey.png" },
+	{ name: "chameleon", image: "images/chameleon.png" },
+	{ name: "piranha", image: "images/piranha.png" },
+	{ name: "anaconda", image: "images/anaconda.png" },
+	{ name: "sloth", image: "images/sloth.png" },
+	{ name: "cockatoo", image: "images/cockatoo.png" },
+	{ name: "toucan", image: "images/toucan.png" },
 ];
 
 // Initial Time
@@ -44,7 +44,7 @@ const timeGenerator = () => {
 	// Format time before displaying
 	let secondsValue = seconds < 10 ? `0${seconds}` : seconds;
 	let minutesValue = minutes < 10 ? `0${minutes}` : minutes;
-	timeValue.innerHTML = `<span>Time:</span> ${minutesValue}: ${secondsValue}`;
+	timeValue.innerHTML = `<span>Time:</span> ${minutesValue}:${secondsValue}`;
 };
 
 // For calculating moves
@@ -70,4 +70,20 @@ const matrixGenerator = (cardValues, size = 4) => {
 	gameContainer.innerHTML = "";
 	cardValues = [...cardValues, ...cardValues];
 	cardValues.sort(() => Math.random() - 0.5);
+	for (let i = 0; i < size * size; i++) {
+		gameContainer.innerHTML += `<div class="card-container" data-card-value="${cardValues[i].name}"><div class="card-before">?</div><div class="card-after"><img src="${cardValues[i].image}" class="image"></div></div>`;
+	}
+	// Grid
+	gameContainer.style.gridTemplateColumns = `repeat(${size}, auto)`;
 };
+
+// Initialize values and function calls
+const initializer = () => {
+	result.innerText = "";
+	winCount = 0;
+	let cardValues = generateRandom();
+	console.log(cardValues);
+	matrixGenerator(cardValues);
+};
+
+initializer();
